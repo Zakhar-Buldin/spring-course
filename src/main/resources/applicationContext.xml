@@ -9,6 +9,12 @@
 
 
     <bean id = "myPet"
-          class = "com.example.springcourse.introduction.Cat">
+          class = "com.example.springcourse.introduction.Dog">
+    </bean>
+
+    <bean id = "myPerson"
+          class = "com.example.springcourse.introduction.Person">
+        <constructor-arg ref="myPet">
+        </constructor-arg>
     </bean>
 </beans>
