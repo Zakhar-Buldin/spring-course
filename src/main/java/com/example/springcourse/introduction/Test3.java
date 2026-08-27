@@ -11,10 +11,13 @@ public class Test3 {
             Создана зависимость в ApplicationContext.xml, поэтому получать объект из контейнера не нужно
 
             <bean id = "myPerson"
-                  class = "com.example.springcourse.introduction.Person">
-                  <constructor-arg ref="myPet">
-                  </constructor-arg>
+                class = "com.example.springcourse.introduction.Person">
+                <property name= "pet" ref = "myPet">
+                </property>
             </bean>
+
+            pet -> Pet -> setPet (Конвертация name = "pet"): property name = "pet"
+            (ref - это ссылка на bean myPet - объект класса Pet)
          */
 
         Person person = context.getBean("myPerson", Person.class);
@@ -22,7 +25,8 @@ public class Test3 {
         /*
             За кулисами:
                 Cat myPet = new Cat();
-                Person myPerson = new Person(myPet);
+                Person myPerson = new Person();
+                Person.setPet(myPet);
          */
         person.callYourPet();
 
