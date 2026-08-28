@@ -7,17 +7,20 @@ public class Test3 {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml"); //Spring Container
 
         /*
-            Pet pet = context.getBean("myPet", Pet.class);
-            Создана зависимость в ApplicationContext.xml, поэтому получать объект из контейнера не нужно
+         Зависимости для setSurname(String surname) и setAge(int age):
 
-            <bean id = "myPerson"
-                class = "com.example.springcourse.introduction.Person">
-                <property name= "pet" ref = "myPet">
-                </property>
+            <bean id="myPerson"
+                  class="com.example.springcourse.introduction.Person">
+                <property name="pet" ref="myPet"/>
+                <property name="surname" value="Buldin"/>
+                <property name="age" value="21"/>
+
             </bean>
 
-            pet -> Pet -> setPet (Конвертация name = "pet"): property name = "pet"
-            (ref - это ссылка на bean myPet - объект класса Pet)
+        При создании класса Person автоматически создается объект класса Pet, и в Person передается ссылка на этот объект.
+        Дальше при помощи сеттеров полям класса Person присваются значения (value): "Buldin" и 21
+
+
          */
 
         Person person = context.getBean("myPerson", Person.class);
@@ -27,8 +30,13 @@ public class Test3 {
                 Cat myPet = new Cat();
                 Person myPerson = new Person();
                 Person.setPet(myPet);
+                Person.setSurname("Buldin");
+                Person.setAge(21); # ("21" -> 21)
          */
         person.callYourPet();
+
+        System.out.println(person.getSurname());
+        System.out.println(person.getAge());
 
         context.close(); // Обязательно закрывать контекст!!!
     }
