@@ -14,14 +14,15 @@ public class Test4 {
 
         /*
         Bean Scope определяет жизненный цикл бина и кол-во создаваемых бинов.
-        По умолчанию scope - SINGLETON,
-        т.е. в Spring контейнере создаётся всего один bean сразу после прочтения конфигурационного файла.
-        Этот bean является общим для всех, кто его запросит у Spring.
+
+        PROTOTYPE:
+            Такой бин создаётся только после каждого обращения к Spring контейнеру с помощью метода
+            getBean!!! Для каждого обращения создаётся новый бин.
 
 
         <bean id="myPet"
               class="com.example.springcourse.introduction.Dog"
-              scope="singleton"> (можно не указывать singleton, т.к. такой scope по умолчанию)
+              scope="prototype">
         </bean>
 
          */
@@ -32,7 +33,5 @@ public class Test4 {
         System.out.println(myDog);
         System.out.println(yourDog);
 
-        System.out.println(myDog.getName());
-        System.out.println(yourDog.getName());
     }
 }

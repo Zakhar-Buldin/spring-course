@@ -9,7 +9,7 @@
 
     <bean id="myPet"
           class="com.example.springcourse.introduction.Dog"
-          scope="singleton">
+          scope="prototype">
         <property name="name" value="Belka"/>
     </bean>
 
