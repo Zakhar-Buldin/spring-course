@@ -4,7 +4,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class Test3 {
     public static void main(String[] args) {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml"); //Spring Container
+        ClassPathXmlApplicationContext context =
+                new ClassPathXmlApplicationContext("applicationContext.xml"); //Spring Container
 
         /*
         DI: внедрение зависимостей и других значений из myApp.properties
