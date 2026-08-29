@@ -1,7 +1,6 @@
 package com.example.springcourse.introduction;
 
 public class Cat implements Pet{
-    private String name;
 
     public Cat(){
         System.out.println("Cat bean is created!");
@@ -12,12 +11,11 @@ public class Cat implements Pet{
         System.out.println("Mew-mew");
     }
 
-    public String getName() {
-        return name;
+    public void init(){
+        System.out.println("Class Cat: init method");
     }
 
-    public void setName(String name) {
-        System.out.println("Class Cat: set name");
-        this.name = name;
+    public void destroy(){
+        System.out.println("Class Cat: destroy method");
     }
 }

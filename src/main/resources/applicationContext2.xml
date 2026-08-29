@@ -9,8 +9,9 @@
 
     <bean id="myPet"
           class="com.example.springcourse.introduction.Dog"
-          scope="prototype">
-        <property name="name" value="Belka"/>
+          init-method="init"
+          destroy-method="destroy"
+          scope="singleton">
     </bean>
 
 </beans>

@@ -5,33 +5,28 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class Test4 {
     public static void main(String[] args) {
         ClassPathXmlApplicationContext context =
-                new ClassPathXmlApplicationContext("applicationContext2.xml");
-        // !!! - В контексте можно указывать несколько xml файлов
-
-        Dog myDog = context.getBean("myPet", Dog.class);
-        Dog yourDog = context.getBean("myPet", Dog.class);
-
+                new ClassPathXmlApplicationContext("applicationContext.xml");
 
         /*
-        Bean Scope определяет жизненный цикл бина и кол-во создаваемых бинов.
-
-        PROTOTYPE:
-            Такой бин создаётся только после каждого обращения к Spring контейнеру с помощью метода
-            getBean!!! Для каждого обращения создаётся новый бин.
-
+        Метод init и destroy:
+            Spring scope = prototype (init вызывается при каждом создании бина,
+            destroy не вызывается вовсе)
 
         <bean id="myPet"
-              class="com.example.springcourse.introduction.Dog"
-              scope="prototype">
+          class="com.example.springcourse.introduction.Dog"
+          init-method="init"
+          destroy-method="destroy"
+          scope="prototype">
         </bean>
-
          */
 
-        System.out.println("Переменные сслылаются на один общий объект? - "
-                + (myDog == yourDog));
+        Cat myCat = context.getBean("myPet", Cat.class);
+        myCat.say();
 
-        System.out.println(myDog);
-        System.out.println(yourDog);
+        Cat yourCat = context.getBean("myPet", Cat.class);
+
+
+        context.close();
 
     }
 }
