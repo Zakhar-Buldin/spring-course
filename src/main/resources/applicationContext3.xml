@@ -7,11 +7,6 @@
     http://www.springframework.org/schema/context
     http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <bean id="myPet"
-          class="com.example.springcourse.introduction.Dog"
-          init-method="init"
-          destroy-method="destroy"
-          scope="singleton">
-    </bean>
+    <context:component-scan base-package="com.example.springcourse.introduction"/>
 
 </beans>
