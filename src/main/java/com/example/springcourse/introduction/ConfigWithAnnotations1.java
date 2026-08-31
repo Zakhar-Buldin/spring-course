@@ -7,9 +7,9 @@ public class ConfigWithAnnotations1 {
         ClassPathXmlApplicationContext context =
                 new ClassPathXmlApplicationContext("applicationContext3.xml");
 
+        Cat cat = context.getBean("catBean", Cat.class);
         Person person = context.getBean("personBean", Person.class);
-        System.out.println(person.getSurname());
-        System.out.println(person.getAge());
+        System.out.println(cat == person.getPet());
 
         /*
          <context:component-scan base-package="com.example.springcourse.introduction"/> -
@@ -17,16 +17,17 @@ public class ConfigWithAnnotations1 {
 
          "com.example.springcourse.introduction" - пакет, в котором проводится сканирование
 
-        Для внедрения строк и других значений можно использовать аннотацию @Value("...").
-        В этом случае в сеттеры НЕ БУДУТ передаваться значения, как это было при конфигурации
-        с помощью xml файла (<property name="age" value="21"/>)
+        Для указания scope:
+            @Component("catBean")
+            @Scope("prototype")
+            public class Cat implements Pet{...}
 
-        Лучше указывать не конкретные значения у каждого поля, а переменные из properties файла:
+        Для создания init и destroy методов:
+            @PostConstruct (Аннотация для метода, который будет выполнять функцию init)
+            public void init(){...}
 
-        @Value("${person.surname}")
-        private String surname;
-
-        Не забываем про: <context:property-placeholder location="classpath:myApp.properties"/>!
+            @PreDestroy (Аннотация для метода, который будет выполнять функцию destroy)
+            public void destroy(){...}
         */
 
         context.close();
