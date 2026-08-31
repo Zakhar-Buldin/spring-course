@@ -8,20 +8,25 @@ public class ConfigWithAnnotations1 {
                 new ClassPathXmlApplicationContext("applicationContext3.xml");
 
         Person person = context.getBean("personBean", Person.class);
-        person.callYourPet();
+        System.out.println(person.getSurname());
+        System.out.println(person.getAge());
 
         /*
-
          <context:component-scan base-package="com.example.springcourse.introduction"/> -
          необходимо указать в xml файле.
 
          "com.example.springcourse.introduction" - пакет, в котором проводится сканирование
 
-        Если при использовании @Autowired подходящих по типу бинов больше одного,
-        то выбрасывается исключение. Предотвратить это можно конкретно указав,
-        какой бин должен быть внедрён. Для этого используют аннотацию @Qualifier.
+        Для внедрения строк и других значений можно использовать аннотацию @Value("...").
+        В этом случае в сеттеры НЕ БУДУТ передаваться значения, как это было при конфигурации
+        с помощью xml файла (<property name="age" value="21"/>)
 
-        @Qualifier можно указывать у сеттера, поля или конструктора (у последнего не типичный синтаксис)
+        Лучше указывать не конкретные значения у каждого поля, а переменные из properties файла:
+
+        @Value("${person.surname}")
+        private String surname;
+
+        Не забываем про: <context:property-placeholder location="classpath:myApp.properties"/>!
         */
 
         context.close();
