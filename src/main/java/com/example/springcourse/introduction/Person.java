@@ -1,11 +1,13 @@
 package com.example.springcourse.introduction;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component("personBean") // В двойных кавычках указывается id бина
 public class Person {
-//  @Autowired (можно внедрять зависимость просто по полю)
+    @Autowired // Внедрение зависимости через аннотацию у поля
+    @Qualifier("catBean") // Указываем id конкретного бина, который внедряем в зависимость
     private Pet pet;
     private String surname;
     private int age;
@@ -14,12 +16,19 @@ public class Person {
         System.out.println("Person bean is created!");
     }
 
+//    @Autowired (Внедрение зависимости через @Autowired + @Qualifier, обратить внимание на синтаксис!)
+//    public Person(@Qualifier("catBean") Pet pet){
+//        System.out.println("Person bean is created!");
+//        this.pet = pet;
+//    }
+
     public void callYourPet(){
         System.out.println("Hello, my lovely Pet!");
         pet.say();
     }
 
-    @Autowired // Внедрение зависимостей через аннотацию у сеттера
+//    @Autowired (Внедрение зависимостей через аннотацию у сеттера)
+//    @Qualifier("catBean")
     public void setPet(Pet pet){
         System.out.println("Class Person: set pet");
         this.pet = pet;
