@@ -1,11 +1,17 @@
 package com.example.springcourse.introduction;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component("personBean") // В двойных кавычках указывается id бина
 public class Person {
     private Pet pet;
     private String surname;
     private int age;
 
-    public Person(){
+    @Autowired // Внедрение зависимости через аннотацию у конструктора
+    public Person(Pet pet){
+        this.pet = pet;
         System.out.println("Person bean is created!");
     }
 

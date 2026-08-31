@@ -11,7 +11,7 @@ public class Cat implements Pet{
 
     @Override
     public void say() {
-        System.out.println("Mew-mew");
+        System.out.println("Meow-meow");
     }
 
     public void init(){

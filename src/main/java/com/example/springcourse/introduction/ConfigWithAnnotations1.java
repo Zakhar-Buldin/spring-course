@@ -7,29 +7,25 @@ public class ConfigWithAnnotations1 {
         ClassPathXmlApplicationContext context =
                 new ClassPathXmlApplicationContext("applicationContext3.xml");
 
-        Cat myCat = context.getBean("catBean", Cat.class);
-        myCat.say();
+        Person person = context.getBean("personBean", Person.class);
+        person.callYourPet();
 
         /*
-        Конфигурация при помощи аннотаций:
-            Процесс состоит из 2-ух этапов:
-                1) сканирование классов и поиск аннотации @Component
-                2) Создание (регистрация) бина в Spring контейнере
 
          <context:component-scan base-package="com.example.springcourse.introduction"/> -
          необходимо указать в xml файле.
 
          "com.example.springcourse.introduction" - пакет, в котором проводится сканирование
 
-        @Component("catBean") // В двойных кавычках указывается id для бина
-        public class Cat implements Pet{...}
-
-        Если id не указывать, то Spring создаст его автоматически (@Context).
-        Алгоритм создание дефолтного id:
-            Class Cat: Cat -> cat
-            Class FavoriteSong: FavoriteSong -> favoriteSong
-            Class SQLTest: SQLTest -> SQLTest !!!
+        Процесс внедрения зависимостей при использовании аннотации @Autowired:
+            1. Сканирование пакета, поиск классов с аннотацией @Component
+            2. При наличии аннотации @Autowired начинается поиск подходящего по типу бина
+            Далее ситуация развивается по одному из сценариев:
+                1) если находится 1 подходящий бин, то происходит внедрение зависимостей
+                2) если подходящих по типу бинов нет или, наоборот, подходящих бинов несколько,
+                 то выбрасывается исключение.
         */
+
         context.close();
     }
 }
