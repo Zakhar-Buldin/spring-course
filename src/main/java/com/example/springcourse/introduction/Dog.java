@@ -1,5 +1,6 @@
 package com.example.springcourse.introduction;
 
+
 public class Dog implements Pet {
 
     public Dog(){

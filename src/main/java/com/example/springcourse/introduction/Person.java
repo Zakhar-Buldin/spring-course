@@ -5,13 +5,12 @@ import org.springframework.stereotype.Component;
 
 @Component("personBean") // В двойных кавычках указывается id бина
 public class Person {
+//  @Autowired (можно внедрять зависимость просто по полю)
     private Pet pet;
     private String surname;
     private int age;
 
-    @Autowired // Внедрение зависимости через аннотацию у конструктора
-    public Person(Pet pet){
-        this.pet = pet;
+    public Person() {
         System.out.println("Person bean is created!");
     }
 
@@ -19,6 +18,8 @@ public class Person {
         System.out.println("Hello, my lovely Pet!");
         pet.say();
     }
+
+    @Autowired // Внедрение зависимостей через аннотацию у сеттера
     public void setPet(Pet pet){
         System.out.println("Class Person: set pet");
         this.pet = pet;
