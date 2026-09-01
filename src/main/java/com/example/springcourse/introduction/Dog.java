@@ -1,8 +1,5 @@
 package com.example.springcourse.introduction;
 
-import org.springframework.stereotype.Component;
-
-@Component("dogBean") // В двойных кавычках указывается id для бина (Конфигурация при помощи аннотаций)
 public class Dog implements Pet {
 
     public Dog(){

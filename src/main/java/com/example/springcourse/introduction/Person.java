@@ -1,17 +1,15 @@
 package com.example.springcourse.introduction;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Value;
 
-@Component("personBean") // В двойных кавычках указывается id бина
 public class Person {
     private Pet pet;
+    @Value("${person.surname}")
     private String surname;
+    @Value("${person.age}")
     private int age;
 
-    @Autowired // Создаём зависимость при помощи конструктора
-    public Person(@Qualifier("catBean") Pet pet) {
+    public Person(Pet pet) {
         this.pet = pet;
         System.out.println("Person bean is created!");
     }
