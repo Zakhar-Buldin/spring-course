@@ -5,47 +5,61 @@ import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
+import java.security.PublicKey;
+
 @Component
 @Aspect
 public class LoggingAndSecurityAspect {
-    // Aspect - это класс, отвечающий за сквозную (служебную) функциональность: логирование, транзакции БД и т.д.
-    /*
-        Advice - метод, который находится в Aspect-е и содержит сквозную логику.
-        Advice определяет, что и когда должно происходить.
-        Pointcut - это выражение, описывающее, где должен быть применён Advice
-     */
-     /*
-        execution(
-            modifiers-pattern?          // модификатор доступа (необязательно)
-            return-type-pattern         // тип возвращаемого значения
-            declaring-type-pattern?     // класс/тип, в котором объявлен метод (необязательно)
-            method-name-pattern(parameters-pattern)  // имя метода и параметры
-            throws-pattern?             // исключения, которые может бросать метод (необязательно)
-        )
 
-        ? — часть необязательна.
-        * — любое значение.
-        .. — любое количество параметров / пакетов, в зависимости от места использования.
-     */
-
-    @Pointcut("execution(* get*())") // В кавычках указываем Pointcut выражение
-    private void allGetMethods() {
+    @Pointcut("execution(* com.example.springcourse.aop.UniLibrary.get*())") // В кавычках указываем Pointcut выражение
+    private void allGetMethodsFromUniLibrary() {
         /*
-        Для того, чтобы не использовать copy-paste, когда для нескольких Advice - ов подходит один и тот же
+        Для того, чтобы не использовать copy-paste, когда для нескольких Advice -ов подходит один и тот же
         Pointcut, есть возможность объявить данный Pointcut и затем его использовать несколько раз.
 
         Тело метода allGetMethods должно быть пустым, т.к. он просто ссылается на Pointcut выражение
          */
     }
 
+    @Pointcut("execution(* com.example.springcourse.aop.UniLibrary.return*())")
+    private void allReturnMethodsFromUniLibrary(){}
 
-    @Before("allGetMethods()") // Указываем ссылку на Pointcut
+    // Комбинирование Pointcut -ов - это их объединение с помощью логических операторов &&, ||, !
+
+    @Pointcut("allGetMethodsFromUniLibrary() || allReturnMethodsFromUniLibrary()") // Комбинация Pointcut -ов (ИЛИ)
+    private void allGetAndReturnMethodsFromUniLibrary() {}
+
+
+
+    @Pointcut("execution(* com.example.springcourse.aop.UniLibrary.*(..))")
+    private void allMethodsFromUniLibrary(){}
+
+    @Pointcut("execution(public void com.example.springcourse.aop.UniLibrary.returnMagazine())")
+    private void returnMagazineFromUniLibrary(){}
+
+    @Pointcut("allMethodsFromUniLibrary() && !returnMagazineFromUniLibrary()") // Комбинация Pointcut -ов (И + НЕ: ВСЁ КРОМЕ...)
+    private void allMethodsExceptReturnMagazineFromUniLibrary(){}
+
+
+
+    @Before("allGetMethodsFromUniLibrary()")
     public void beforeGetLoggingAdvice(){
-        System.out.println("beforeGetLoggingAdvice: попытка получить книгу/жунал");
+        System.out.println("beforeGetLoggingAdvice: writing Log №1");
     }
 
-    @Before("allGetMethods()") // Указываем ссылку на Pointcut
-    public void beforeGetSecurityAdvice(){
-        System.out.println("beforeGetSecurityAdvice: проверка прав на получение книги/журнала");
+    @Before("allReturnMethodsFromUniLibrary()")
+    public void beforeReturnLoggingAdvice(){
+        System.out.println("beforeReturnLoggingAdvice: writing Log №2");
     }
+
+    @Before("allGetAndReturnMethodsFromUniLibrary()")
+    public void beforeGetAndReturnLoggingAdvice(){
+        System.out.println("beforeGetAndReturnLoggingAdvice: writing Log №3");
+    }
+
+    @Before("allMethodsExceptReturnMagazineFromUniLibrary()")
+    public void beforeAllMethodsExceptReturnMagazineAdvice(){
+        System.out.println("beforeAllMethodsExceptReturnMagazineAdvice: writing Log №666");
+    }
+
 }
