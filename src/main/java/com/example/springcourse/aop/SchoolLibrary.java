@@ -14,7 +14,4 @@ public class SchoolLibrary extends AbstractLibrary{
         System.out.println("Мы возвращаем журнал в SchoolLibrary");
     }
 
-    public void getMagazine(String magazineName){
-        System.out.println("Мы берем журнал из SchoolLibrary: " + magazineName);
-    }
 }

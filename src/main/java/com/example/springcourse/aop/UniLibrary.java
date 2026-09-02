@@ -13,11 +13,7 @@ public class UniLibrary extends AbstractLibrary {
         System.out.println("Мы возвращаем книгу в UniLibrary");
     }
 
-    public void getMagazine(String magazineName, int magazineId){
-        System.out.println("Мы берем журнал из UniLibrary: id = " + magazineId + " name = " + magazineName);
-    }
-
-    public void getCustomBook(Book book){
-        System.out.println("Мы возвращаем книгу в UniLibrary: " + book.getName());
+    public void getMagazine(){
+        System.out.println("Мы берём журнал из UniLibrary");
     }
 }
