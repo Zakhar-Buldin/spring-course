@@ -1,10 +1,9 @@
 package com.example.springcourse.aop;
 import org.springframework.stereotype.Component;
 
-@Component // id бина = uniLibrary
-public class UniLibrary extends AbstractLibrary {
+// @Component // id бина = uniLibrary
+public class UniLibrary {
 
-    @Override
     public void getBook(){
         System.out.println("Мы берём книгу из UniLibrary");
         System.out.println("----------------------------------");
