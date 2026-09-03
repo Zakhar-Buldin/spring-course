@@ -8,7 +8,9 @@ public class Test1 {
                 new AnnotationConfigApplicationContext(MyConfig.class); // Создание и запуск Spring контейнера
 
         UniLibrary uniLibrary = context.getBean("uniLibrary", UniLibrary.class);
-        uniLibrary.getBook();
-        uniLibrary.getMagazine();
+        Book book = context.getBean("book", Book.class);
+
+        uniLibrary.addBook("Zakhar", book);
+        uniLibrary.addMagazine();
     }
 }

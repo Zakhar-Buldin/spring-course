@@ -10,8 +10,9 @@ import org.springframework.stereotype.Component;
 @Order(30) // Аннотация упорядочивает Aspect -ы (чем меньше число, тем выше приоритет)
 public class ExceptionHandlingAspect {
 
-    @Before("com.example.springcourse.aop.aspects.MyPointcuts.allGetMethods()")
-    public void beforeGetExceptionHandlingAdvice(){
-        System.out.println("beforeGetExceptionHandlingAdvice(): ловим/обрабатываем исключения при попытке получить книгу/журнал");
+    @Before("com.example.springcourse.aop.aspects.MyPointcuts.allAddMethods()")
+    public void beforeAddExceptionHandlingAdvice(){
+        System.out.println("beforeAddExceptionHandlingAdvice(): ловим/обрабатываем исключения при попытке получить книгу/журнал");
+        System.out.println("-----------------------------------------------------------------------");
     }
 }

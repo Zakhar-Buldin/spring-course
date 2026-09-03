@@ -3,8 +3,8 @@ package com.example.springcourse.aop.aspects;
 import org.aspectj.lang.annotation.Pointcut;
 
 public class MyPointcuts {
-    @Pointcut("execution(* get*())") // В кавычках указываем Pointcut выражение
-    public void allGetMethods() {
+    @Pointcut("execution(* add*(..))") // В кавычках указываем Pointcut выражение
+    public void allAddMethods() {
         // Выносим Pointcut -ы в отдельный класс и ставим public
 
         /*

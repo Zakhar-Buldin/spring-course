@@ -10,8 +10,9 @@ import org.springframework.stereotype.Component;
 @Order(20) // Аннотация упорядочивает Aspect -ы (чем меньше число, тем выше приоритет)
 public class SecurityAspect {
 
-    @Before("com.example.springcourse.aop.aspects.MyPointcuts.allGetMethods()")
-    public void beforeGetSecurityAdvice(){
-        System.out.println("beforeGetSecurityAdvice: проверка прав на получение книги/журнала");
+    @Before("com.example.springcourse.aop.aspects.MyPointcuts.allAddMethods()")
+    public void beforeAddSecurityAdvice(){
+        System.out.println("beforeAddSecurityAdvice: проверка прав на получение книги/журнала");
+        System.out.println("-----------------------------------------------------------------------");
     }
 }
