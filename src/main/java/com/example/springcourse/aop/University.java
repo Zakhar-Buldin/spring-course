@@ -21,6 +21,8 @@ public class University {
     }
 
     public List<Student> getStudents(){
+        System.out.println("Начало работы метода getStudents");
+        System.out.println(students.get(5)); // Обращаемся к несуществующему элементу (некорректный индекс)
         System.out.println("getStudents: Возвращаем список студентов университета");
         return students;
     }

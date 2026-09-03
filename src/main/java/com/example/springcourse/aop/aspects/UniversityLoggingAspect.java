@@ -2,6 +2,7 @@ package com.example.springcourse.aop.aspects;
 
 import com.example.springcourse.aop.Student;
 import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
 
@@ -38,4 +39,22 @@ public class UniversityLoggingAspect {
         System.out.println("afterReturningGetStudentLoggingAdvice: логируем получение списка студентов и " +
                 "меняем информацию о первом студенте");
     }
+
+    @AfterThrowing(pointcut = "execution(* getStudents())", throwing = "exception")
+    public void afterThrowingGetStudentLoggingAdvice(Throwable exception){
+
+        /*
+        @AfterThrowing Advice выполняется после аварийного завершения работы методы,
+        т.е. если было выброшено исключение.
+
+        @AfterThrowing Advice НЕ ВЛИЯЕТ на протекание программы при выбрасывании исключения.
+        С помошью @AfterThrowing Advice можно получить доступ к исключению,
+        которое выбросилось из метода с основной логикой (в данном случае из getStudents)
+
+        Имя параметра метода afterThrowingGetStudentLoggingAdvice должно быть таким же, как и в throwing!
+         */
+        System.out.println("afterThrowingGetStudentLoggingAdvice: логируем выброс исключения " + exception);
+    }
+
+
 }
