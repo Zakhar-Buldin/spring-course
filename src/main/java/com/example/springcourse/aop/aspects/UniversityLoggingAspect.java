@@ -1,9 +1,12 @@
 package com.example.springcourse.aop.aspects;
 
 import com.example.springcourse.aop.Student;
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -56,5 +59,22 @@ public class UniversityLoggingAspect {
         System.out.println("afterThrowingGetStudentLoggingAdvice: логируем выброс исключения " + exception);
     }
 
+    @After("execution(* getStudents())")
+    public void afterGetStudentsLoggingAdvice(JoinPoint joinPoint){
+        /*
+        @After Advice выполняется после окончания метода с основной логикой вне зависимости от того,
+        завершается ли метод нормально или выбрасывается исключение (этот Advice похож на finally).
 
+        С помощью @After Advice невозможно:
+            1) получить доступ к исключению, которое выбросилось из метода с основной логикой
+            2) получить доступ к возвращаемому методом результату
+
+        Но благодаря JoinPoint можно получить сигнатуру метода с бизнес-логикой (основную информацию о нём).
+         */
+
+        MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
+
+        System.out.println("afterGetStudentsLoggingAdvice (после " + methodSignature.getName() +") : логируем нормальное окончание работы метода " +
+                "или аварийное завершение (выброс исключения)");
+    }
 }
