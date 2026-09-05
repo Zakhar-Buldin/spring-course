@@ -33,7 +33,7 @@ public class Test1 {
 
              */
 
-            Employee employee = new Employee("Zakhar", "Buldin", "IT", 10000000);
+            Employee employee = new Employee("Viktoria", "Perova", "IT", 10000000);
             session.beginTransaction(); // Открытие транзакции
             session.persist(employee); // Добавление employee в БД
             session.getTransaction().commit(); // Закрытие транзакции

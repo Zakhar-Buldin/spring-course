@@ -1,9 +1,6 @@
 package com.example.springcourse.hibernate_test.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 /*
     Конфигурация связи между классом и таблицей в данном случае осуществляется с помощью Java аннотаций.
@@ -21,7 +18,16 @@ public class Employee {
         private поля, getter-ы, setter-ы, конструктор без аргументов и т.д.
      */
 
+    /*
+    Столбец PRIMARY KEY содержит уникальное значение и не может быть null.
+    Аннотация @GeneratedValue описывает стратегию по генерации значений для столбца с PRIMARY KEY.
+
+    GenerationType.IDENTITY полагается на автоувеличение столбца по правилам, прописанным в БД.
+    Есть ещё GenerationType.AUTO, GenerationType.SEQUENCE, GenerationType.TABLE, но это не нужно.
+
+     */
     @Id // Аннотация говорит о том, что в таблице, столбец связанный с данным полем является PRIMARY KEY
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id") // Аннотация говорит о том, к какому именно столбцу из таблицы мы привязываем поле класса
     private int id;
     @Column(name = "name") // Аннотация говорит о том, к какому именно столбцу из таблицы мы привязываем поле класса
