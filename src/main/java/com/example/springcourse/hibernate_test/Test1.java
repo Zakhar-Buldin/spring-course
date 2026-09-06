@@ -30,7 +30,7 @@ public class Test1 {
                 добавляем, получаем, изменяем и удаляем их в БД.
 
                 Жизненный цикл Session обычно недолгий:
-                получили Session → выполнили необходимые операции → закрыли Session.\
+                получили Session → выполнили необходимые операции → закрыли Session.
              */
 
             Employee employee = new Employee("Yaroslav", "Barishev", "Devops", 15);

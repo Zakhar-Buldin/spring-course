@@ -5,8 +5,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-
-public class Test3 {
+public class Test4 {
     public static void main(String[] args){
 
         /*
@@ -35,8 +34,10 @@ public class Test3 {
              */
 
             session.beginTransaction(); // Открываем транзакцию
-            Employee employee = session.find(Employee.class, 3); // Получаем объект Employee c id = 3
-            employee.setSalary(5000); // Меняем salary у управляемого Hibernate объекта
+            Employee employee = session.find(Employee.class, 2); // Получаем объект Employee c id = 2
+            if (employee != null) {
+                session.remove(employee); // Пометили объект Employee на удаление
+            }
 
             session.getTransaction().commit(); // Подтверждаем и завершаем транзакцию
             /*
@@ -46,23 +47,22 @@ public class Test3 {
 
                     SELECT *
                     FROM employees
-                    WHERE id = 3;
+                    WHERE id = 2;
 
-                После employee.setSalary(5000) Hibernate видит,
-                что состояние объекта изменилось.
+                После session.remove(employee) Hibernate видит,
+                что объект хотят удалить.
 
                 При flush/commit выполняется примерно:
 
-                    UPDATE employees
-                    SET salary = 5000
-                    WHERE id = 3;
+                    DELETE FROM employees
+                    WHERE id = 2;
             */
             session.close(); // Закрываем сессию
 
 
             session = factory.getCurrentSession(); // Получаем текущую сессию для работы с БД
             session.beginTransaction(); // Открываем транзакцию
-            session.createMutationQuery("update Employee set salary = 4500 where name = 'Yaroslav'")
+            session.createMutationQuery("delete from Employee where surname = 'Barishev'")
                     .executeUpdate();
             /*
                 Для получения объектов из базы используется HQL (Hibernate Query Language).
@@ -70,9 +70,8 @@ public class Test3 {
                 а не напрямую с таблицами и столбцами.
 
                Hibernate преобразует HQL примерно в такой SQL:
-                    UPDATE employees
-                    SET salary = 4500
-                    WHERE name = 'Yaroslav'
+                    DELETE FROM employees
+                    WHERE surname = 'Barishev'
              */
 
             session.getTransaction().commit(); // Подтверждаем и завершаем транзакцию
