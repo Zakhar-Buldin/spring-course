@@ -23,20 +23,24 @@ public class Test1 {
 
             Session session = factory.getCurrentSession(); // Получение текущей сессии для работы с БД
             /*
-            Session - это обёртка вокруг подключения к базе с помошью JDBC.
-            Session мы получаем с помошью SessionFactory
-            Session - это основа для работы с Базой Данных. Именно с помощью Session мы будем добавлять,
-            получать и делать другие операции с Java Объектами в Базе Данных.
+                Session - это основной объект Hibernate для работы с БД.
+                Session получаем с помощью SessionFactory.
 
-            Жизненный цикл Session обычно не велик. Мы получаем Session, делаем с помощью неё определённые операции
-            и она становится не нужной.
+                С помощью Session мы выполняем операции с Java-объектами:
+                добавляем, получаем, изменяем и удаляем их в БД.
 
+                Жизненный цикл Session обычно недолгий:
+                получили Session → выполнили необходимые операции → закрыли Session.\
              */
 
-            Employee employee = new Employee("Viktoria", "Perova", "IT", 10000000);
-            session.beginTransaction(); // Открытие транзакции
-            session.persist(employee); // Добавление employee в БД
-            session.getTransaction().commit(); // Закрытие транзакции
+            Employee employee = new Employee("Yaroslav", "Barishev", "Devops", 15);
+            session.beginTransaction(); // Открываем транзакцию
+            session.persist(employee); // Добавляем employee в БД: под капотом INSERT (синхронизация с БД происходит не сразу)
+            session.getTransaction().commit(); // Подтверждаем и закрываем транзакию
+
+            session.close(); // Закрываем сессию
+
+
         }
         finally {
             factory.close(); // Закрытие SessionFactory
