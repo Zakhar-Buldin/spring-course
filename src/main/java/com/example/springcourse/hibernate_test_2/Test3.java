@@ -6,7 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-public class Test2 {
+public class Test3 {
     public static void main(String[] args) {
 
         /*
@@ -39,9 +39,9 @@ public class Test2 {
 
             session.beginTransaction(); // Открываем транзакцию
 
-            Detail detail = session.find(Detail.class, 4); // Находим объект Detail с id = 4
-            Employee employee = detail.getEmployee(); // Получаем связанный объект Employee
-            System.out.println(employee);
+            Detail detail = session.find(Detail.class, 6); // Находим объект Detail с id = 6
+            detail.getEmployee().setEmpDetail(null); // Отвязываем Detail от Employee
+            session.remove(detail); // Удаление НЕ КАСКАДНОЕ, т.к. cascade = {CascadeType.PERSIST, CascadeType.REFRESH}
 
             session.getTransaction().commit(); // Подтверждаем и закрываем транзакию
 

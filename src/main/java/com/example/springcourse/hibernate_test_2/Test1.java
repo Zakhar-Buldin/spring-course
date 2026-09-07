@@ -37,12 +37,15 @@ public class Test1 {
                 получили Session → выполнили необходимые операции → закрыли Session.
              */
 
-            Employee employee = new Employee("Ivan", "Gomaz", "Mems", 300);
-            Detail detail = new Detail("Chicago", "1234567890", "ivan-gomaz@gmail.com");
-            employee.setEmpDetail(detail);
+            Employee employee = new Employee("Nastya", "Sineva", "Musin", 300);
+            Detail detail = new Detail("Moscow", "1234567890", "stasiany@gmail.com");
+
+            employee.setEmpDetail(detail); // Двусторонняя связь (необходимо у обоих объектов создать ссылку друг на друга)
+            detail.setEmployee(employee);
 
             session.beginTransaction(); // Открываем транзакцию
-            session.persist(employee); // Добавляем объект Employee в таблицу (Detail добавится автоматически благодаря каскаду)
+
+            session.persist(detail); // Добавляем объект Detail в таблицу (Employee добавится автоматически благодаря каскаду)
 
             session.getTransaction().commit(); // Подтверждаем и закрываем транзакию
 

@@ -17,6 +17,10 @@ public class Detail {
     @Column(name = "email")
     private String email;
 
+    @OneToOne(mappedBy = "empDetail", cascade = {CascadeType.PERSIST, CascadeType.REFRESH}) // mappedBy указывает поле empDetail в классе Employee, которое управляет этой связью
+    private Employee employee;
+    // "empDetail" — это именно название Java-поля в Employee, а не название столбца details_id в БД.
+
     public Detail() {
     }
 
@@ -66,5 +70,13 @@ public class Detail {
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", email='" + email + '\'' +
                 '}';
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 }
