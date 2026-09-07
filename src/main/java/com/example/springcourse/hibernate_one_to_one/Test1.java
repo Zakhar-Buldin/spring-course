@@ -1,12 +1,12 @@
-package com.example.springcourse.hibernate_test_2;
-
-import com.example.springcourse.hibernate_test_2.entity.Detail;
-import com.example.springcourse.hibernate_test_2.entity.Employee;
+package com.example.springcourse.hibernate_one_to_one;
+import com.example.springcourse.hibernate_one_to_one.entity.Employee;
+import com.example.springcourse.hibernate_one_to_one.entity.Detail;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-public class Test2 {
+
+public class Test1 {
     public static void main(String[] args) {
 
         /*
@@ -37,11 +37,15 @@ public class Test2 {
                 получили Session → выполнили необходимые операции → закрыли Session.
              */
 
+            Employee employee = new Employee("Nastya", "Sineva", "Musin", 300);
+            Detail detail = new Detail("Moscow", "1234567890", "stasiany@gmail.com");
+
+            employee.setEmpDetail(detail); // Двусторонняя связь (необходимо у обоих объектов создать ссылку друг на друга)
+            detail.setEmployee(employee);
+
             session.beginTransaction(); // Открываем транзакцию
 
-            Detail detail = session.find(Detail.class, 4); // Находим объект Detail с id = 4
-            Employee employee = detail.getEmployee(); // Получаем связанный объект Employee
-            System.out.println(employee);
+            session.persist(detail); // Добавляем объект Detail в таблицу (Employee добавится автоматически благодаря каскаду)
 
             session.getTransaction().commit(); // Подтверждаем и закрываем транзакию
 

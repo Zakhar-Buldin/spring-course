@@ -1,4 +1,4 @@
-package com.example.springcourse.hibernate_test_2.entity;
+package com.example.springcourse.hibernate_one_to_one.entity;
 
 import jakarta.persistence.*;
 

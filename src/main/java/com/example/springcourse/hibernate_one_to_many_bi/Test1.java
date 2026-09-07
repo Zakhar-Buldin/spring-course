@@ -1,6 +1,7 @@
-package com.example.springcourse.hibernate_test_2;
-import com.example.springcourse.hibernate_test_2.entity.Employee;
-import com.example.springcourse.hibernate_test_2.entity.Detail;
+package com.example.springcourse.hibernate_one_to_many_bi;
+
+import com.example.springcourse.hibernate_one_to_many_bi.entity.Department;
+import com.example.springcourse.hibernate_one_to_many_bi.entity.Employee;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -18,7 +19,7 @@ public class Test1 {
         SessionFactory factory = new Configuration()
                 .configure("hibernate.cfg.xml")  // Указывает файл конфигурации Hibernate
                 .addAnnotatedClass(Employee.class) // Добавляем класс, имеющий спец. аннотации для работы с БД
-                .addAnnotatedClass(Detail.class) // Добавляем класс, имеющий спец. аннотации для работы с БД
+                .addAnnotatedClass(Department.class) // Добавляем класс, имеющий спец. аннотации для работы с БД
                 .buildSessionFactory();
 
         Session session = null;
@@ -26,26 +27,19 @@ public class Test1 {
         try {
 
             session = factory.getCurrentSession(); // Получение текущей сессии для работы с БД
-            /*
-                Session - это основной объект Hibernate для работы с БД.
-                Session получаем с помощью SessionFactory.
 
-                С помощью Session мы выполняем операции с Java-объектами:
-                добавляем, получаем, изменяем и удаляем их в БД.
+            Department department = new Department("IT", 300, 1200);
+            Employee emp1 = new Employee("Zakhar", "Buldin", 800);
+            Employee emp2 = new Employee("Valera", "Ivanov", 1000);
 
-                Жизненный цикл Session обычно недолгий:
-                получили Session → выполнили необходимые операции → закрыли Session.
-             */
+            department.addEmployeeToDepartment(emp1);
+            department.addEmployeeToDepartment(emp2);
 
-            Employee employee = new Employee("Nastya", "Sineva", "Musin", 300);
-            Detail detail = new Detail("Moscow", "1234567890", "stasiany@gmail.com");
-
-            employee.setEmpDetail(detail); // Двусторонняя связь (необходимо у обоих объектов создать ссылку друг на друга)
-            detail.setEmployee(employee);
 
             session.beginTransaction(); // Открываем транзакцию
 
-            session.persist(detail); // Добавляем объект Detail в таблицу (Employee добавится автоматически благодаря каскаду)
+            session.persist(department); // Добавляем департамент в таблицу (работники добавятся автоматически благодаря каскаду)
+
 
             session.getTransaction().commit(); // Подтверждаем и закрываем транзакию
 

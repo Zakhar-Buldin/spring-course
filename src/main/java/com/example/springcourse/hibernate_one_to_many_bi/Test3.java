@@ -1,10 +1,11 @@
-package com.example.springcourse.hibernate_test_2;
+package com.example.springcourse.hibernate_one_to_many_bi;
 
-import com.example.springcourse.hibernate_test_2.entity.Detail;
-import com.example.springcourse.hibernate_test_2.entity.Employee;
+import com.example.springcourse.hibernate_one_to_many_bi.entity.Department;
+import com.example.springcourse.hibernate_one_to_many_bi.entity.Employee;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+
 
 public class Test3 {
     public static void main(String[] args) {
@@ -18,7 +19,7 @@ public class Test3 {
         SessionFactory factory = new Configuration()
                 .configure("hibernate.cfg.xml")  // Указывает файл конфигурации Hibernate
                 .addAnnotatedClass(Employee.class) // Добавляем класс, имеющий спец. аннотации для работы с БД
-                .addAnnotatedClass(Detail.class) // Добавляем класс, имеющий спец. аннотации для работы с БД
+                .addAnnotatedClass(Department.class) // Добавляем класс, имеющий спец. аннотации для работы с БД
                 .buildSessionFactory();
 
         Session session = null;
@@ -26,23 +27,13 @@ public class Test3 {
         try {
 
             session = factory.getCurrentSession(); // Получение текущей сессии для работы с БД
-            /*
-                Session - это основной объект Hibernate для работы с БД.
-                Session получаем с помощью SessionFactory.
-
-                С помощью Session мы выполняем операции с Java-объектами:
-                добавляем, получаем, изменяем и удаляем их в БД.
-
-                Жизненный цикл Session обычно недолгий:
-                получили Session → выполнили необходимые операции → закрыли Session.
-             */
 
             session.beginTransaction(); // Открываем транзакцию
 
-            Detail detail = session.find(Detail.class, 6); // Находим объект Detail с id = 6
-            detail.getEmployee().setEmpDetail(null); // Отвязываем Detail от Employee
-            session.remove(detail); // Удаление НЕ КАСКАДНОЕ, т.к. cascade = {CascadeType.PERSIST, CascadeType.REFRESH}
-
+            Employee employee = session.find(Employee.class, 1);
+            System.out.println(employee);
+            System.out.println(employee.getDepartment());
+            
             session.getTransaction().commit(); // Подтверждаем и закрываем транзакию
 
 
