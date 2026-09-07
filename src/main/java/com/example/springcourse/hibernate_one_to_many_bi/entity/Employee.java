@@ -26,7 +26,7 @@ public class Employee {
     @Column(name = "salary") // Аннотация говорит о том, к какому именно столбцу из таблицы мы привязываем поле класса
     private int salary;
 
-    @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE}) // Связь многие-к-одному
+    @ManyToOne(cascade = CascadeType.ALL) // Связь многие-к-одному
     @JoinColumn(name = "department_id") // Настройка внешнего ключа
     private Department department;
 

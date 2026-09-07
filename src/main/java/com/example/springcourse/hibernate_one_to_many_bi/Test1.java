@@ -28,12 +28,14 @@ public class Test1 {
 
             session = factory.getCurrentSession(); // Получение текущей сессии для работы с БД
 
-            Department department = new Department("IT", 300, 1200);
+            Department department = new Department("Sales", 300, 1200);
             Employee emp1 = new Employee("Zakhar", "Buldin", 800);
             Employee emp2 = new Employee("Valera", "Ivanov", 1000);
+            Employee emp3 = new Employee("Anton", "Sidorov", 780);
 
             department.addEmployeeToDepartment(emp1);
             department.addEmployeeToDepartment(emp2);
+            department.addEmployeeToDepartment(emp3);
 
 
             session.beginTransaction(); // Открываем транзакцию

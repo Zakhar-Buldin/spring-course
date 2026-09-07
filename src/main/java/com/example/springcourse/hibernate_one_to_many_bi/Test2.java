@@ -32,12 +32,29 @@ public class Test2 {
 
             session.beginTransaction(); // Открываем транзакцию
 
-            Department department = session.find(Department.class, 1);
+            Department department = session.find(Department.class, 3);
+
+            /*
+            При загрузке данных типа EAGER выполняется примерно такой SQL запрос:
+                SELECT departments.*, employees.*
+                FROM departments LEFT JOIN employees ON departments.id = employees.department_id
+                WHERE departments.id = 3;
+
+            А при загрузке данных типа LAZY такой запрос:
+                SELECT *
+                FROM departments
+                WHERE id = 3;
+
+                SELECT *
+                FROM employees
+                WHERE department_id = 3;
+             */
 
             System.out.println(department);
             System.out.println(department.getEmployeeList());
 
             session.getTransaction().commit(); // Подтверждаем и закрываем транзакию
+//          System.out.println(department.getEmployeeList()); // Попробуй запустить вывод после коммита с разными FetchType
 
 
         }

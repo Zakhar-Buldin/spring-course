@@ -23,8 +23,25 @@ public class Department {
     @Column(name = "min_salary")
     private int minSalary;
 
-    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, fetch = FetchType.EAGER) // Устанавливаем тип LAZY loading
     private List<Employee> employeeList;
+
+    /*
+        Типы загрузки данных:
+     EAGER (нетерпеливая) загрузка - при её использовании связанные сущности загружаются вместе
+     с загрузкой основной сущности.
+
+     LAZY (ленивая) загрузка - при её использовании связанные сущности НЕ загружаются сразу вместе
+     с загрузкой основной сущности. Связанные сущности загрузятся только при первом обращении к ним.
+
+     Чаще логичнее использовать LAZY loading, чтобы не подгружались лишние данные.
+
+     Fetch type (тип выборки) по умолчанию:
+        One-to-One -> EAGER
+        One-to-Many -> LAZY
+        Many-to-One -> EAGER
+        Many-to-Many -> LAZY
+     */
 
     public Department()
     {
